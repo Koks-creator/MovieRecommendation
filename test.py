@@ -4,9 +4,9 @@ import torch
 from MovieRecommend.MovieRecommendModel import MFAdvanced, MODEL_CONFIG, round_to_0p5
 
 
-MODEL_PATH = r"movieRecommendModel.pth"
-MOVIE_MAPPING_PATH = r"MovieMapping.pkl"
-ALREADY_RATED_PATH = r"AlreadyRated.pkl"
+MODEL_PATH = r"model/movieRecommendModel.pth"
+MOVIE_MAPPING_PATH = r"model/MovieMapping.pkl"
+ALREADY_RATED_PATH = r"model/AlreadyRated.pkl"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
@@ -46,6 +46,7 @@ user_ratings = []
 already_rated_by_user = already_rated[user_id]
 all_movies = [i for i in range(MODEL_CONFIG["n_items"])]
 movies_to_check = list(set(all_movies) - set(already_rated_by_user))
+
 print(f"Recommendations for user: {1}")
 for item_id in range(len(movies_to_check)):
     predicted_rating = model(torch.tensor([user_id]).to(device), torch.tensor([item_id]).to(device))
